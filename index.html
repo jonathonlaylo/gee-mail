@@ -6,7 +6,98 @@
       window.onload = function(){
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
-        
+        	/*
+         	 3.	When your page load, via JavaScript access your prepopulated data store in the 
+        	  	window.geemails variable. Each object in the array has the following properties:
+        	  		date 	- the date message was sent
+        	  		subject - the subject of the message
+        	  		sender	- the sender of the message
+        	  		body	- the GeeMail message content
+        	*/
+        	//prepopulated data stored in the window.geemails variable
+        	for (var i = 0; i < window.geemails.lenght; i++) {
+        		//assigning variable emailSubject, calling emailSubject toeach email in the window.geemails 
+        		var emailSubject = getEmail(window.geemails[i]);
+        		//assigning variable findEmail
+        		var findEmail = document.getElementById("main");
+        		//putting every emailSubject to email box
+        		findEmail.appendChild(emailSubject);
+        		//printing in window.geemails variable
+        		console.log(window.geemails[i]);
+        	}
+        	/*
+        	 5.	You must show an inbox count somewhere on the page to show the current number 
+        	 	of messages in your inbox
+        	*/
+        	//assignging variable count and will hold the count of each emails
+        	var count = document.getElementById("total");
+        	//assigning theCount to keep the count of how many emails 
+        	var theCount = window.geemails.leght; 
+        	//assigning theCounter to text value of the total number of emails
+      		var theCounter = document.createTextNode(theCount);
+      		//appending theCounter to total
+      		total.appendChild(theCounter);
+      		
+      		/*
+      		 6. 	Set recurring function to via JavaScript setInterval function that will call existing 
+      		    	getNewMessage function that was already created that will return a newly created 
+      		    	message with the same properties as your previous messages.
+      		*/
+      		function newInterval(){
+      			//assigning createdMessage to predefined getNewMessage function 
+      			var createdMessage = getNewMessage();
+      			//assigning subjectMessage to getEmail function
+      			var subjectMessage = getEmail(createdMessage);
+      			//assigning compltedMessage to main
+      			var completedMessage = document.getElementById("main");
+      			//appending subjectMessage to completedMessage
+      			completedMessage.appendChild(subjectMessage);
+      			//updating the email count
+      			theCounter++;
+      			//count updating theCounter
+      			count.innerHTML = theCounter;
+      			//printing subjectMesage
+      			console.log(subjectMessage);
+      		};
+      		setInterval(newInterval, 1000);
+     		/*
+     		 4.	With this data you must make a visual list of mail messages on the page with the following
+     		 	minimum requirments 
+     		 		Each message should have its own row showing;
+     		 			- date
+     		 			- sender
+     		 			- subject
+     		 		when clicking on a message you must provide some method of showing the message for that row
+     		*/
+     		function getText(text, theClas){
+     			var textBlock = document.createElemnt("div");
+     			var actualText = document.createTextNode(text);
+     			textBlock.className += theClass; 
+     			textBloack.appendChild(actualText);
+	     		return textBlock;
+     		}
+     		
+     		function getEmail(message){
+     			//div to show the line of the email
+     			var line = document.createElement("div");
+     			//date to show the date of email
+     			var date = getText(message["date"], "DATE");
+     			//sender in the email
+     			var sender = getText(message["sender"], "SENDER");
+     			//subject in the email
+     			var subject = getText(message["subject"], "SUBJECT");
+     			//the body of the email
+     			var body = getText(message["body"], "BODY");
+     			//putting it all together to get the email 
+     			line.className += 'line';
+     			line.appendChild(date);
+     			line.appendChild(sender);
+     			line.appendChild(subject);
+     			line.appendChild(body);
+     			//returning email text
+     			return line;
+     		}
+      }
       };
     </script>
 	</head>
